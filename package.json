@@ -1,0 +1,10 @@
+{
+  "name": "f1-monte-carlo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "F1-style arcade racer on a Monaco-inspired street circuit. Three.js, lap timer, leaderboard.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GP MONTE-CARLO — F1 Racing</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<!-- Shown if the JS fails to load (e.g. opened from file://) -->
+<div id="loadhint">
+  <div class="loadhint-inner">
+    <h2>GP MONTE-CARLO</h2>
+    <p>Loading engine…</p>
+    <p class="small">If this message stays, the game must be served over HTTP.<br>
+    Run <code>npm start</code> (or <code>python -m http.server 5173</code>) in the game folder<br>
+    and open <code>http://localhost:5173</code></p>
+  </div>
+</div>
+
+<!-- ============ MAIN MENU ============ -->
+<div id="menu" class="overlay">
+  <div class="menu-inner">
+    <div class="title-block">
+      <div class="kicker">FORMULA ONE &middot; WORLD CHAMPIONSHIP</div>
+      <h1>GP <span>MONTE&#8209;CARLO</span></h1>
+      <div class="trackline">
+        <span>STREET CIRCUIT</span><i></i><span id="menuLength">3.3&nbsp;KM</span><i></i><span>19 TURNS</span><i></i><span>DAYLIGHT</span>
+      </div>
+    </div>
+
+    <div class="menu-cols">
+      <div class="col col-left">
+        <label class="lbl" for="driverName">DRIVER</label>
+        <input id="driverName" maxlength="12" value="PLAYER" spellcheck="false">
+
+        <button id="btnTT" class="btn">
+          <span class="btn-title">TIME&nbsp;TRIAL</span>
+          <span class="btn-sub">solo run &middot; chase the leaderboard</span>
+        </button>
+        <button id="btnRace" class="btn alt">
+          <span class="btn-title">GRAND&nbsp;PRIX</span>
+          <span class="btn-sub">3 laps &middot; 3 rivals on the grid</span>
+        </button>
+      </div>
+
+      <div class="col col-right">
+        <div class="lbl">LEADERBOARD &mdash; FASTEST LAPS</div>
+        <ol id="lbList" class="lb"></ol>
+        <button id="btnClear" class="btn ghost">clear records</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <span><b>W</b> throttle</span><span><b>S</b> brake</span><span><b>A D</b> steer</span>
+      <span><b>SPACE</b> handbrake</span><span><b>SHIFT</b> ERS boost</span>
+      <span><b>C</b> camera</span><span><b>R</b> reset</span><span><b>M</b> sound</span><span><b>ESC</b> menu</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HUD ============ -->
+<div id="hud" class="hidden">
+  <div class="hud-topleft">
+    <div class="panel timing">
+      <div class="lap-row"><span class="lbl">LAP</span><span id="hudLap">1</span></div>
+      <div class="big" id="hudCurrent">0:00.000</div>
+      <div class="times">
+        <div><span class="lbl">LAST</span><span id="hudLast">--:--.---</span></div>
+        <div><span class="lbl">BEST</span><span id="hudBest">--:--.---</span></div>
+        <div><span class="lbl">DELTA</span><span id="hudDelta">-</span></div>
+      </div>
+      <div id="hudStatus" class="status"></div>
+    </div>
+  </div>
+
+  <div id="hudTopright" class="hidden">
+    <div class="panel pos-panel">
+      <div class="pos-num" id="hudPos">P1</div>
+      <div class="lbl" id="hudPosSub">POSITION</div>
+      <div class="gap" id="hudGap"></div>
+    </div>
+  </div>
+
+  <div class="hud-bottomleft">
+    <canvas id="minimap" width="250" height="250"></canvas>
+  </div>
+
+  <div class="hud-bottomright">
+    <div class="ers-wrap">
+      <span class="lbl">ERS</span>
+      <div class="ers-bar"><i id="ersFill"></i></div>
+    </div>
+    <canvas id="gauge" width="280" height="200"></canvas>
+  </div>
+</div>
+
+<!-- ============ START LIGHTS ============ -->
+<div id="lights" class="hidden">
+  <div class="light" data-i="0"></div>
+  <div class="light" data-i="1"></div>
+  <div class="light" data-i="2"></div>
+  <div class="light" data-i="3"></div>
+  <div class="light" data-i="4"></div>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div id="results" class="overlay hidden">
+  <div class="results-inner">
+    <div class="kicker" id="resultsKicker">RACE COMPLETE</div>
+    <h2 id="resultsTitle">CLASSIFICATION</h2>
+    <div id="resultsBody" class="results-body"></div>
+    <div class="results-btns">
+      <button id="btnAgain" class="btn small">RACE&nbsp;AGAIN</button>
+      <button id="btnMenu2" class="btn ghost small">MAIN&nbsp;MENU</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="hidden"></div>
+
+<script type="importmap">
+{ "imports": { "three": "./lib/three.module.js" } }
+</script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
